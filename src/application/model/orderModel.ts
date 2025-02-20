@@ -3,18 +3,21 @@ import { ObjectId } from 'mongodb';
 
 export interface IOrder extends Document {
   customerId: ObjectId;
-  productIds: ObjectId[];
+  products: {
+      _id: unknown | ObjectId; productId: ObjectId; quantity: number 
+}[];
+  discounts: number;
 }
 
 /**
- * Schema definition for the Order model.
- *
- * @property {ObjectId} customerId - The ID of the customer who placed the order. This field is required.
- * @property {ObjectId[]} productIds - An array of product IDs included in the order. Each product ID is required.
- * @property {number} total - The total amount for the order. This field is required.
- *
- * @schema OrderSchema
- * @timestamps true - Automatically adds `createdAt` and `updatedAt` timestamps to the schema.
+ * @typedef {Object} OrderSchema
+ * @property {Schema.Types.ObjectId} customerId - The ID of the customer placing the order. This field is required.
+ * @property {Array.<Object>} products - An array of products included in the order.
+ * @property {Schema.Types.ObjectId} products.id - The ID of the product. This field is required.
+ * @property {number} products.quantity - The quantity of the product. This field is required and must be at least 1.
+ * @property {number} discounts - The total discounts applied to the order. Defaults to 0.
+ * @property {Date} createdAt - The date and time when the order was created. This field is automatically managed by Mongoose.
+ * @property {Date} updatedAt - The date and time when the order was last updated. This field is automatically managed by Mongoose.
  */
 const OrderSchema = new Schema(
   {
@@ -23,7 +26,13 @@ const OrderSchema = new Schema(
       ref: 'customer',
       required: true,
     },
-    productIds: [{ type: Schema.Types.ObjectId, ref: 'product', required: true }],
+    products: [
+      {
+        _id: { type: Schema.Types.ObjectId, ref: 'product', required: true },
+        quantity: { type: Number, required: true, min: 1 },
+      },
+    ],
+    discounts: { type: Number, default: 0 },
   },
   { timestamps: true },
 );

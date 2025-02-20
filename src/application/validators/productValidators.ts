@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 /**
  * Validator for creating a product.
- * 
+ *
  * This validator ensures that the product object being created adheres to the following rules:
  * - `name`: A string with a minimum length of 3 and a maximum length of 50 characters. This field is required.
  * - `description`: A string with a minimum length of 3 and a maximum length of 50 characters. This field is required.
@@ -22,12 +22,12 @@ export const createProductValidator = Joi.object({
 
 /**
  * Validator for product stock operations.
- * 
+ *
  * This validator ensures that the provided object contains:
  * - `id`: A required string representing the product ID.
  * - `type`: A required string that must be either 'restock' or 'sell'.
  */
 export const pathProductStockValidator = Joi.object({
-  id: Joi.string().required(),
+  id: Joi.string().hex().length(24),
   type: Joi.string().valid('restock', 'sell').required(),
 });
