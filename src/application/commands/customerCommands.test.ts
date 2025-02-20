@@ -2,7 +2,6 @@ import Boom from '@hapi/boom';
 import { createCustomerCommand } from './customerCommands';
 import { CustomerModel } from '../model/customerModel';
 import { createCustomerValidator } from '../validators/customerValidator';
-import { publicField } from '../model/customerDecorator';
 
 jest.mock('@/application/model/customerModel');
 jest.mock('@/application/validators/customerValidator', () => ({
