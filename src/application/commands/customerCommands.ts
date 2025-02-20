@@ -9,6 +9,19 @@ interface ICreateCustomerInput {
   password: string;
 }
 
+/**
+ * Creates a new customer.
+ *
+ * This function validates the input data using `createCustomerValidator`.
+ * If the validation fails, it returns a bad request error with the validation message.
+ * It then checks if a customer with the same email or name already exists in the database.
+ * If such a customer exists, it returns a bad request error indicating that the customer already exists.
+ * If the customer does not exist, it creates a new customer record in the database and saves it.
+ * Finally, it returns a success response with the created customer data.
+ *
+ * @param {ICreateCustomerInput} data - The input data for creating a customer.
+ * @returns {Promise<Object>} The response object containing the status code and message.
+ */
 export const createCustomerCommand = async (data: ICreateCustomerInput) => {
   const { error } = createCustomerValidator.validate(data);
   if (error) {

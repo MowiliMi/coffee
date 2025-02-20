@@ -22,6 +22,16 @@ interface IProductStockInput {
   type: ProductStockType;
 }
 
+/**
+ * Creates a new product.
+ *
+ * This function validates the input data for creating a product, checks if a product with the same name already exists,
+ * and if not, creates a new product and saves it to the database.
+ *
+ * @param {ICreateProductInput} data - The input data for creating a product.
+ * @returns {Promise<object>} - Returns a promise that resolves to an object containing the status code and message.
+ * If validation fails or the product already exists, it returns a bad request error payload.
+ */
 export const createProductCommand = async (data: ICreateProductInput) => {
   const { error } = createProductValidator.validate(data);
   if (error) {
@@ -47,6 +57,19 @@ export const createProductCommand = async (data: ICreateProductInput) => {
   };
 };
 
+/**
+ * Updates the stock of a product based on the provided input data.
+ *
+ * @param {IProductStockInput} data - The input data containing the product ID and stock update type.
+ * @returns {Promise<object>} - A promise that resolves to an object containing the status code and message.
+ *
+ * @throws {Boom.Boom} - Throws an error if the product is not found or if the stock update is invalid.
+ *
+ * @example
+ * const data = { id: 'productId', type: ProductStockType.RESTOCK };
+ * const result = await pathProductStockCommand(data);
+ * console.log(result);
+ */
 export const pathProductStockCommand = async (data: IProductStockInput) => {
   const { id, type } = data;
   const product = await ProductModel.findOne({ _id: id }, { _id: 1 }).lean();

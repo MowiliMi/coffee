@@ -3,6 +3,13 @@ import { CustomerModel } from '@/application/model/customerModel';
 import { getCustomerByEmailValidator } from '@/application/validators/customerValidator';
 import { publicField, publicFields } from '@/application/model/customerDecorator';
 
+/**
+ * Retrieves a customer by their email address.
+ *
+ * @param email - The email address of the customer to retrieve.
+ * @returns A promise that resolves to an object containing the status code and customer details,
+ *          or an error payload if the customer is not found or the email is invalid.
+ */
 export const getCustomerByEmailQuery = async (email: string) => {
   const { error } = getCustomerByEmailValidator.validate({ email });
   if (error) {
@@ -21,6 +28,12 @@ export const getCustomerByEmailQuery = async (email: string) => {
   };
 };
 
+/**
+ * Retrieves a list of customers with selected fields (email, name, createdAt).
+ * Limits the result to 100 customers.
+ *
+ * @returns {Promise<{ statusCode: number, message: any }>} An object containing the status code and the list of customers with public fields.
+ */
 export const getCustomersQuery = async () => {
   const customers = await CustomerModel.find({}, { email: 1, name: 1, createdAt: 1 }).limit(100).lean();
 
