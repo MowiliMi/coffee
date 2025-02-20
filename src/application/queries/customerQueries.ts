@@ -22,7 +22,7 @@ export const getCustomerByEmailQuery = async (email: string) => {
 };
 
 export const getCustomersQuery = async () => {
-  const customers = await CustomerModel.find({}, { email: 1, name: 1, createdAt: 1 }).lean();
+  const customers = await CustomerModel.find({}, { email: 1, name: 1, createdAt: 1 }).limit(100).lean();
 
   return {
     statusCode: 200,

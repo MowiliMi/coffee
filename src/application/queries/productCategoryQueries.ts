@@ -25,7 +25,9 @@ export const getProductCategoryByPermalinkQuery = async (permalink: string) => {
 };
 
 export const getProductCategoriesQuery = async () => {
-  const productCategories = await ProductCategoryModel.find({}, { name: 1, description: 1, permalink: 1 }).lean();
+  const productCategories = await ProductCategoryModel.find({}, { name: 1, description: 1, permalink: 1 })
+    .limit(100)
+    .lean();
 
   return {
     statusCode: 200,
