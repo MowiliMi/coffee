@@ -37,6 +37,10 @@ export const getCustomerByEmailQuery = async (email: string) => {
 export const getCustomersQuery = async () => {
   const customers = await CustomerModel.find({}, { email: 1, name: 1, createdAt: 1 }).limit(100).lean();
 
+  if (!customers) {
+    return Boom.notFound('No customers found').output.payload;
+  }
+
   return {
     statusCode: 200,
     message: publicFields(customers),

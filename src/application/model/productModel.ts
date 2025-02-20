@@ -23,7 +23,7 @@ const ProductSchema = new Schema(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
-    categoryIds: [{ type: Schema.Types.ObjectId, ref: 'productCategory', required: true }],
+    categoryIds: [{ type: Schema.Types.ObjectId, ref: 'productsCategory', required: true }],
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
   },

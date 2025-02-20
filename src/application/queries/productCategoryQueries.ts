@@ -43,6 +43,10 @@ export const getProductCategoriesQuery = async () => {
     .limit(100)
     .lean();
 
+  if (!productCategories) {
+    return Boom.notFound('No product categories found').output.payload;
+  }
+
   return {
     statusCode: 200,
     message: publicFields(productCategories),

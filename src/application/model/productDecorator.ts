@@ -3,16 +3,17 @@ import { deepPick } from '@/utils/deepPick';
 
 /**
  * An array of field names representing the properties of a product.
- * 
+ *
  * Fields included:
  * - `name`: The name of the product.
  * - `description`: A brief description of the product.
+ * - `categoryIds`: An array of category IDs to which the product belongs.
  * - `price`: The price of the product.
  * - `stock`: The available stock quantity of the product.
  * - `category`: The category to which the product belongs.
  * - `permalink`: A permanent link to the product.
  */
-const fields = ['name', 'description', 'price', 'stock', 'category', 'permalink'];
+const fields = ['name', 'description', 'categoryIds', 'price', 'stock', 'category', 'permalink'];
 
 /**
  * Selects and returns specific fields from the given product item.
