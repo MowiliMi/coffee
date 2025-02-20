@@ -30,7 +30,6 @@ export const createOrderCommand = async (data: ICreateOrderInput) => {
     return Boom.badRequest('One or more products do not exist').output.payload;
   }
 
-  // check if stock is available
   const insufficientStock = orderProducts.some((item) => {
     const orderProduct = products.find((p) => p._id === item._id.toString());
 

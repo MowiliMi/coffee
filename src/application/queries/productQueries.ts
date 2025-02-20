@@ -10,8 +10,6 @@ import { publicFields } from '@/application/model/productDecorator';
  * @async
  */
 
-// adding categoryIds reference from array
-
 export const getProductsQuery = async () => {
   const products = await ProductModel.find(
     {},
