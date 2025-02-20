@@ -68,7 +68,6 @@ export const createProductCommand = async (data: ICreateProductInput) => {
  * @example
  * const data = { id: 'productId', type: ProductStockType.RESTOCK };
  * const result = await pathProductStockCommand(data);
- * console.log(result);
  */
 export const pathProductStockCommand = async (data: IProductStockInput) => {
   const { id, type } = data;
